@@ -2,14 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
-# ƒ[ƒ‹ƒAƒhƒŒƒX‚ÆƒpƒXƒ[ƒh‚Ìw’è
+# ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã¨ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã®æŒ‡å®š
 USER = ""
 PASS = ""
 
-# ƒZƒbƒVƒ‡ƒ“‚ğŠJn
+# ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚’é–‹å§‹
 session = requests.session()
 
-# ƒƒOƒCƒ“
+# ãƒ­ã‚°ã‚¤ãƒ³
 login_info = {
         "username":USER,
         "password":PASS
@@ -18,6 +18,9 @@ login_info = {
 # action
 url_login = "http://tool.motorz-garage.com/auths/signin"
 res = session.post(url_login, data=login_info)
-res.raise_for_status() # ƒGƒ‰[‚È‚ç‚±‚±‚Å—áŠO‚ğ”­¶‚³‚¹‚é
+res.raise_for_status() # ã‚¨ãƒ©ãƒ¼ãªã‚‰ã“ã“ã§ä¾‹å¤–ã‚’ç™ºç”Ÿã•ã›ã‚‹
 
-print(res.text)
+res2 = session.get("URL")
+res2.raise_for_status() # ã‚¨ãƒ©ãƒ¼ãªã‚‰ã“ã“ã§ä¾‹å¤–ã‚’ç™ºç”Ÿã•ã›ã‚‹
+
+print(res2.text)
