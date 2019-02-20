@@ -7,7 +7,8 @@ Created on Thu Feb 14 09:32:00 2019
 
 import openpyxl
 import webbrowser
-import requests
+import requests,bs4
+import csv
 
 # ワークブック読み込み
 wb = openpyxl.load_workbook('excel_web.xlsx')
@@ -32,12 +33,31 @@ for cell_obj in list(sheet.columns)[0]:
     try:
         res.raise_for_status()
         print('OK')
-        play_file=open('test1.txt','wb')
+        
+        # web 内容抜き出し
+        soup = bs4.BeautifulSoup(res.text, "html.parser")
+        
+        # file open
+#        play_file=open('test1.txt','wb')
+        csv_file=open('output.csv','w',newline='')
+        output_writer=csv.writer(csv_file)
+        
+        # class get
+        card_t = soup.select('.card-title')
+        
+        for card in card_t:
+ #           out_id = card.get('id')
+            out_card=card.getText()
+            output_writer.writerow([0,out_card])
+            print(out_card)
+            
+        
+        csv_file.close()
         
         #web内容をファイルに書き出し
-        for chunk in res.iter_content(100000):
-            play_file.write(chunk)
-        play_file.close()
+#        for chunk in res.iter_content(100000):
+#            play_file.write(chunk)
+#        play_file.close()
     #requestsの例外処理
     except Exception as exc:
         print('問題あり:{}'.format(exc))
